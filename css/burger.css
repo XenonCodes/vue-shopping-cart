@@ -1,0 +1,26 @@
+.form__wrp {
+    width: 900px;
+    height: 200px;
+    margin: auto;
+}
+
+.button {
+    display: block;
+    width: 300px;
+    font-size: 35px;
+    margin: 20px auto;
+}
+
+legend {
+    font-size: 50px;
+}
+
+label {
+    font-size: 35px;
+}
+
+input {
+    transform: scale(1.8);
+    opacity: 0.9;
+    cursor: pointer;
+}

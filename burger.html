@@ -1,12 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/burger.css">
     <title>Burger</title>
 </head>
+
 <body>
-    <script></script>
+    <form class="form" action="#">
+        <fieldset class="form__wrp">
+            <legend>Выберите размер бургера:</legend>
+            <div>
+                <input type="radio" id="big" name="burger" value="big" checked>
+                <label for="big">Большой(<span class="price">100</span> рублей / <span class="calories">40</span>
+                    калорий)</label>
+            </div>
+            <div>
+                <input type="radio" id="small" name="burger" value="small">
+                <label for="small">Маленький(<span class="price">50</span> рублей / <span class="calories">20</span>
+                    калорий)</label>
+            </div>
+        </fieldset>
+
+        <fieldset class="form__wrp">
+            <legend>Выберите начинку:</legend>
+            <div>
+                <input type="radio" id="cheese" name="stuffing" value="cheese" checked>
+                <label for="cheese">Сыр(<span class="price">10</span> рублей / <span class="calories">20</span>
+                    калорий)</label>
+            </div>
+            <div>
+                <input type="radio" id="salad" name="stuffing" value="salad">
+                <label for="salad">Салат(<span class="price">20</span> рублей / <span class="calories">5</span>
+                    калорий)</label>
+            </div>
+            <div>
+                <input type="radio" id="potatoes" name="stuffing" value="potatoes">
+                <label for="potatoes">Картофель(<span class="price">15</span> рублей / <span class="calories">10</span>
+                    калорий)</label>
+            </div>
+        </fieldset>
+
+        <fieldset class="form__wrp">
+            <legend>Выберите topping для бургера:</legend>
+            <div>
+                <input type="checkbox" id="seasoning" name="topping" value="seasoning">
+                <label for="seasoning">Приправа(<span class="price">15</span> рублей / <span class="calories">0</span>
+                    калорий)</label>
+            </div>
+            <div>
+                <input type="checkbox" id="mayonnaise" name="topping" value="mayonnaise">
+                <label for="mayonnaise">Майонез(<span class="price">20</span> рублей / <span class="calories">5</span>
+                    калорий)</label>
+            </div>
+        </fieldset>
+        <button class="button" type="button">Расчитать стоимость и калорийность</button>
+    </form>
+
+    <script>
+        let button = document.querySelector(".button");
+        button.addEventListener('click', function () {
+            let order = [];
+            let input = document.querySelectorAll('input');
+            input.forEach(item => {
+                if (item.checked) {
+                    order.push(item);
+                }
+            });
+
+            const size = new Size(order[0].id, order[0].nextElementSibling.children[0].innerText, order[0].nextElementSibling.children[1].innerText);
+
+            const stuffing = new Stuffing(order[1].id, order[1].nextElementSibling.children[0].innerText, order[1].nextElementSibling.children[1].innerText)
+
+            function addToping() {
+                let result = [];
+                for (let i = 2; i < order.length; i++) {
+                    let elem = new Topping(order[i].id, order[i].nextElementSibling.children[0].innerText, order[i].nextElementSibling.children[1].innerText);
+                    result.push(elem);
+                }
+                return result;
+            }
+            const topping = addToping();
+            const cafe = new Cafe('Online Cafe');
+            const workOrder = new Order(cafe, size, stuffing, topping);
+            workOrder.runOrder();
+            workOrder.showOrder();
+        });
+
+        function test() {
+
+        }
+
+        class Hamburger {
+            constructor(size, stuffing, topping) {
+                this.size = size;
+                this.stuffing = stuffing;
+                this.topping = topping;
+                this.price = this.size.price + this.stuffing.price + this.getToppingPrice();
+                this.calories = this.size.calories + this.stuffing.calories + this.getToppingCalories();
+            }
+
+            getToppingPrice() {
+                let result = 0;
+                this.topping.forEach(item => result += item.price);
+                return result;
+            }
+            getToppingCalories() {
+                let result = 0;
+                this.topping.forEach(item => result += item.calories);
+                return result;
+            }
+        }
+
+        class Cafe {
+            constructor(titleCafe) {
+                this.titleCafe = titleCafe;
+            }
+
+            cookBurger(size, stuffing, topping) {
+                const burger = new Hamburger(size, stuffing, topping);
+                return burger;
+            }
+        }
+
+        class Order {
+            constructor(cafe, size, stuffing, topping) {
+                this.cafe = cafe;
+                this.size = size;
+                this.stuffing = stuffing;
+                this.topping = topping;
+                this.burger = [];
+                this.sumOrder = 0;
+                this.sumCalories = 0;
+            }
+
+            runOrder() {
+                this.burger.push(this.cafe.cookBurger(this.size, this.stuffing, this.topping));
+                this.sumOrder = this.burger[0].price;
+                this.sumCalories = this.burger[0].calories;
+            }
+
+            showOrder() {
+                console.log(this.burger[0]);
+                alert(`Ваш заказ вышел на сумму ${this.burger[0].price}р\nОбщая коларийность состовляет ${this.burger[0].calories}ккал.`)
+            }
+        }
+
+        class Size {
+            constructor(size, price, calories) {
+                this.size = size;
+                this.price = +price;
+                this.calories = +calories;
+            }
+        }
+
+        class Stuffing {
+            constructor(stuffing, price, calories) {
+                this.stuffing = stuffing;
+                this.price = +price;
+                this.calories = +calories;
+            }
+        }
+
+        class Topping {
+            constructor(topping, price, calories) {
+                this.topping = topping;
+                this.price = +price;
+                this.calories = +calories;
+            }
+        }
+    </script>
 </body>
+
 </html>
