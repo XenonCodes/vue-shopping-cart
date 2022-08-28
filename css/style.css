@@ -3,7 +3,12 @@
     padding: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 header {
+    position: relative;
     height: 100px;
     padding: 0 20px;
     background: rgb(253, 127, 52);
@@ -32,6 +37,65 @@ header {
     touch-action: manipulation;
 }
 
+.btn-delete {
+    color: white;
+    font-size: 40px;
+    background-color: black;
+    padding: 15px 20px;
+    border-radius: 14px;
+    margin: auto 0;
+    cursor: pointer;
+}
+
+.btn-delete:hover,
+.btn-delete:focus {
+    opacity: 0.5;
+}
+
+.basket {
+    position: absolute;
+    border-radius: 0px 0px 20px 20px;
+    background-color: whitesmoke;
+    border: 2px solid black;
+    padding: 25px;
+    top: 100%;
+    width: 500px;
+    min-height: 100px;
+}
+
+.basket__basket-item {
+    margin: 20px 0;
+}
+
+.basket-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.basket-item__img {
+    display: block;
+    width: 200px;
+    height: 150px;
+}
+
+.basket-item__wrp {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.basket-item__title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.basket-item__totalPrice {
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.basket-item__btn {}
+
 .btn-cart:before {
     content: '';
     position: absolute;
@@ -57,12 +121,14 @@ header {
     border-radius: 4px;
 }
 
-.btn-cart:hover {
+.btn-cart:hover,
+.btn-cart:focus {
     color: #fff;
     transition: .3s;
 }
 
-.btn-cart:hover:after {
+.btn-cart:hover:after,
+.btn-cart:focus:after {
     background: linear-gradient(90deg, #fd7f34, #bd155b);
 }
 
@@ -113,4 +179,3 @@ main {
 .product-item__btn {
     margin: 15px auto 0;
 }
-
