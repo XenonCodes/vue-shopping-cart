@@ -13,6 +13,7 @@ class BasketList {
             .then(data => {
                 this.goods = data.contents;//запишем полученные данные в массив
                 this.render();//вывод товаров на страницу
+                this.getButton();
             });
         this.showBasket();
     }
@@ -36,8 +37,33 @@ class BasketList {
             document.querySelector(this.container).classList.toggle('hidden');
         });
     }
-    addProduct() { }
-    deleteProduct() { }
+    addProduct(id) {
+        let product = document.querySelector(`[data-id="${id}"]`);
+        let element = product.querySelector('.basket-item__volume').querySelector('span');
+        element.innerText = +element.innerText + 1;
+        this.changesProduct(product);
+    }
+    deleteProduct(id) {
+        let product = document.querySelector(`[data-id="${id}"]`);
+        let element = product.querySelector('.basket-item__volume').querySelector('span');
+        if (+element.innerText > 0) {
+            element.innerText = +element.innerText - 1;
+            this.changesProduct(product);
+        }
+    }
+    getButton() {
+        document.querySelectorAll(".btn-delete").forEach(button => {
+            button.addEventListener('click', function (event) {
+                basketList.deleteProduct(event.target.dataset.id);
+            });
+        });
+    }
+    changesProduct(product) {
+        let volume = product.querySelector('.basket-item__volume').querySelector('span');
+        let totalPrice = product.querySelector('.basket-item__totalPrice').querySelector('span');
+        let price = product.querySelector('.basket-item__price').querySelector('span');
+        totalPrice.innerText = +price.innerText * +volume.innerText;
+    }
     clearBasket() { }
     calcuTotalPrice() { }
 }
@@ -78,6 +104,7 @@ class ProductList {
                 this.goods = data;//запишем полученные данные в массив
                 this.render();//вывод товаров на страницу
                 this.сalcuAllPriceGoods(); //общая цена товара на странице
+                this.getButton();
             });
     }
     _getProducts() {
@@ -101,6 +128,14 @@ class ProductList {
             const item = new ProductItem(product);
             block.insertAdjacentHTML("beforeend", item.render());
         }
+    }
+
+    getButton() {
+        document.querySelectorAll(".product-item__btn").forEach(button => {
+            button.addEventListener('click', function (event) {
+                basketList.addProduct(event.target.dataset.id)
+            });
+        });
     }
 }
 

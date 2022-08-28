@@ -94,8 +94,6 @@ header {
     font-weight: 900;
 }
 
-.basket-item__btn {}
-
 .btn-cart:before {
     content: '';
     position: absolute;
