@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextTestLesson4</title>
+</head>
+
+<body>
+    <div>
+        <p>One: 'Hi Mary.' Two: 'Oh, hi.'</p>
+        <p>One: 'How are you doing?'</p>
+        <p>Two: 'I'm doing alright. How about you?'</p>
+        <p>One: 'Not too bad. The weather is great isn't it?'</p>
+        <p>Two: 'Yes. It's absolutely beautiful today.'</p>
+        <p>One: 'I wish it was like this more frequently.'</p>
+        <p>Two: 'Me too.'</p>
+        <p>One: 'So where are you going now?'</p>
+        <p>Two: 'I'm going to meet a friend of mine at the department store.'</p>
+        <p>One: 'Going to do a little shopping?'</p>
+        <p>Two: 'Yeah, I have to buy some presents for my parents.'</p>
+        <p>One: 'What's the occasion?'</p>
+        <p>Two: 'It's their anniversary.'</p>
+        <p>One: 'That's great. Well, you better get going. You don't want to be late.'</p>
+        <p>Two: 'I'll see you next time.'</p>
+        <p>One: 'Sure. Bye.'</p>
+    </div>
+    <button class="btn-1">REPLACE-1</button>
+    <button class="btn-2">REPLACE-2</button>
+    <button class="btn-3">RESET</button>
+
+    <script>
+        //1) Заменить все '' на "" по клику на кнопку REPLACE-1
+        //2) Меняем '' на "" кроме апострофов I'm по клику на кнопку REPLACE-2
+        // Дополнительно:
+        //3)* Создать форму Имя, телефон, E-mail, text, кнопка ОТПРАВИТЬ
+        //  a) Имя содержит только буквы.
+        //  b) Телефон имеет вид +7(000)000-0000.
+        //  c) E-mail имеет вид mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru.
+        //  d) Текст произвольный.
+        //  e) Если одно из полей не прошло валидацию, необходимо выделить это поле красной рамкой
+        //  и сообщить пользователю об ошибке.
+        let btn1 = document.querySelector('.btn-1');
+        let btn2 = document.querySelector('.btn-2');
+        let btn3 = document.querySelector('.btn-3');
+        let pCollection
+
+        getCollection = () => document.querySelectorAll('p');
+        change1 = () => {
+            pCollection = getCollection();
+            const regexp = new RegExp("'", 'g');
+            pCollection.forEach(el => {
+                el.textContent = el.textContent.replace(regexp, '"');
+                console.log(el.textContent);
+            })
+        }
+        change2 = () => {
+            change1();
+            pCollection = getCollection();
+            pCollection.forEach(el => {
+                el.textContent = el.textContent.replace(/(\w)"(\w)/ig,`$1\'$2`);
+            })
+        }
+
+        btn1.addEventListener('click', () => {
+            change1();
+        });
+
+        btn2.addEventListener('click', () => {
+            change2()
+        });
+
+        btn3.addEventListener('click', () => {
+            let divEl = document.querySelector('div');
+            console.dir(divEl);
+            divEl.innerHTML = `
+                <p>One: 'Hi Mary.' Two: 'Oh, hi.'</p>
+                <p>One: 'How are you doing?'</p>
+                <p>Two: 'I'm doing alright. How about you?'</p>
+                <p>One: 'Not too bad. The weather is great isn't it?'</p>
+                <p>Two: 'Yes. It's absolutely beautiful today.'</p>
+                <p>One: 'I wish it was like this more frequently.'</p>
+                <p>Two: 'Me too.'</p>
+                <p>One: 'So where are you going now?'</p>
+                <p>Two: 'I'm going to meet a friend of mine at the department store.'</p>
+                <p>One: 'Going to do a little shopping?'</p>
+                <p>Two: 'Yeah, I have to buy some presents for my parents.'</p>
+                <p>One: 'What's the occasion?'</p>
+                <p>Two: 'It's their anniversary.'</p>
+                <p>One: 'That's great. Well, you better get going. You don't want to be late.'</p>
+                <p>Two: 'I'll see you next time.'</p>
+                <p>One: 'Sure. Bye.'</p>
+        `
+        });
+
+    </script>
+</body>
+
+</html>
