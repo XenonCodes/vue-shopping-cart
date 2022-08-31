@@ -18,6 +18,37 @@ header {
     align-items: center;
 }
 
+.search-form {
+    position: relative;
+    margin-right: 50px;
+    display: inline-block;
+}
+
+.search-field {
+    box-sizing: border-box;
+    width: 200px;
+    color: #fafafa;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fafafa;
+    font-size: 20px;
+}
+
+.search-field:focus {
+    outline: none;
+}
+
+.btn-search {
+    background-color: transparent;
+    border: none;
+    color: #fafafa;
+    font-size: 1.2em;
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+}
+
 .btn-cart {
     text-decoration: none;
     color: #6b5770;
@@ -154,6 +185,10 @@ main {
     padding: 20px;
     border: 2px solid black;
     border-radius: 10px;
+}
+
+.product-item__img {
+    min-height: 300px;
 }
 
 .product-item__title {
