@@ -30,6 +30,20 @@
     <button class="btn-1">REPLACE-1</button>
     <button class="btn-2">REPLACE-2</button>
     <button class="btn-3">RESET</button>
+    <br>
+    <br>
+    <form>
+        <input id="name" type="text" required placeholder="Name"><br>
+        <br>
+        <input id="tel" type="tel" required placeholder="+7(000)000-00-00"><br>
+        <br>
+        <input id="email" type="email" required placeholder="Email"><br>
+        <br>
+        <textarea style="resize: none;" id="text" cols="30" rows="10" required="required"
+            placeholder="Your text"></textarea><br>
+        <br>
+        <button>Отправить</button>
+    </form>
 
     <script>
         //1) Заменить все '' на "" по клику на кнопку REPLACE-1
@@ -60,7 +74,7 @@
             change1();
             pCollection = getCollection();
             pCollection.forEach(el => {
-                el.textContent = el.textContent.replace(/(\w)"(\w)/ig,`$1\'$2`);
+                el.textContent = el.textContent.replace(/(\w)"(\w)/ig, `$1\'$2`);
             })
         }
 
@@ -95,6 +109,37 @@
         `
         });
 
+        let formEl = document.querySelector('form');
+        let nameEl = document.getElementById('name');
+        let telEl = document.getElementById('tel');
+        let emailEl = document.getElementById('email');
+        let textEl = document.getElementById('text');
+
+        var uPattern = /^[a-zа-яё]{3,16}$/i; //Для проверки Имени
+        var tPattern = /^\+7\([0-9]{3}\)[0-9]{3}\-[0-9]{2}\-[0-9]{2}/; //Для проверки телефона
+        var mPattern = /^\w+@\w+\.\w{2,4}/i; //Для проверки почты
+        var textPattern = /[a-zа-я0-9?,!.\s]{10,}/gi; //Для проверки текста
+
+        formEl.addEventListener('submit', event => {
+            debugger
+            if (!uPattern.test(nameEl.value)) {
+                nameEl.style.borderColor = 'red';
+                alert('Введите коректное имя состоящее только из букв');
+                event.preventDefault();
+            } else if (!tPattern.test(telEl.value)) {
+                telEl.style.borderColor = 'red';
+                alert('Введите телефон формата +7(000)000-00-00');
+                event.preventDefault();
+            } else if (!mPattern.test(emailEl.value)) {
+                emailEl.style.borderColor = 'red';
+                alert('Введите eMail формата mail@mail.ru');
+                event.preventDefault();
+            } else if (!textPattern.test(textEl.value)) {
+                textEl.style.borderColor = 'red'
+                alert('Минимальный текст для отправки - 10 символов');
+                event.preventDefault();
+            }
+        });
     </script>
 </body>
 
