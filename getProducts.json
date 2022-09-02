@@ -1,0 +1,16 @@
+[
+  {
+    "id_product": 124,
+    "product_name": "Keyboard",
+    "price": 1600,
+    "img": "./img/product1.jpg",
+    "text": "The Ducky One 3 Mini Daybreak is hot-swappable with Ducky's exclusive top-of-the-line Kailh Yellow Sockets. The One 3 series features Ducky's V2 stabilizers with improved stability, feel, and sound."
+  },
+  {
+    "id_product": 457,
+    "product_name": "Gamepad",
+    "price": 3000,
+    "img": "./img/product4.png",
+    "text": "Оснащенный парой аналоговых стиков геймпад GameSir T4 Pro универсален: устройство рассчитано на подключение к мобильным устройствам (iOS и Android), ПК и Nintendo Switch."
+  }
+]
