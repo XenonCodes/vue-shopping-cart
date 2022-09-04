@@ -3,6 +3,10 @@
 
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.classList.toggle('hidden');
+});
+
 //Создаю константу и присваиваю новый объект Vue
 const app = new Vue({
     //Свойство которое связывает Vue через id в HTML.(встроенное)
@@ -47,33 +51,43 @@ const app = new Vue({
         },
         //Метод добавления товара в корзину.
         addProduct(product) {
-            //Создаем переменную find в которую присваиваем объект полученный с помощью метода find из массива basketGoods. Метод find перебирает массив basketGoods и сравнивает .id_product переданного параметра функции addProduct(объект product каталога товара) и .id_product каждого товара в корзине basketGoods. Если такой товар имеется то find принимает этот товар как объект и записывает в find.
-            let find = this.basketGoods.find(item => product.id_product == item.id_product);
-            //Если такой объект есть то это true
-            if (find) {
-                //Увеличиваем свойство quantity(количество) на 1
-                find.quantity++;
-            } else { //А если нет то...
-                //Добавляем новое свойство quantity для объекта product(переданного в параметре функции addProduct) и ставим ему значение 1
-                this.$set(product, 'quantity', 1);
-                //Добавляем объект product(переданного в параметре функции addProduct) в массив корзины basketGoods методом .push
-                this.basketGoods.push(product);
-            }
+            //Получаем данные с удаленного сервера(Есть ли доступ к добавлению товара)
+            this.getJson(`${API}/addToBasket.json`)
+                .then(data => {
+                    //Если result === 1, то доступ разрешен
+                    if (data.result === 1) {
+                        //Создаем переменную find в которую присваиваем объект полученный с помощью метода find из массива basketGoods. Метод find перебирает массив basketGoods и сравнивает .id_product переданного параметра функции addProduct(объект product каталога товара) и .id_product каждого товара в корзине basketGoods. Если такой товар имеется то find принимает этот товар как объект и записывает в find.
+                        let find = this.basketGoods.find(item => product.id_product == item.id_product);
+                        //Если такой объект есть то это true
+                        if (find) {
+                            //Увеличиваем свойство quantity(количество) на 1
+                            find.quantity++;
+                        } else { //А если нет то...
+                            //Добавляем новое свойство quantity для объекта product(переданного в параметре функции addProduct) и ставим ему значение 1
+                            this.$set(product, 'quantity', 1);
+                            //Добавляем объект product(переданного в параметре функции addProduct) в массив корзины basketGoods методом .push
+                            this.basketGoods.push(product);
+                        }
+                    }
+                })
         },
         //Метод удаления товара из корзины
         deleteProduct(cart) {
-            //Создаем переменную find в которую присваиваем объект полученный с помощью метода find из массива basketGoods. Метод find перебирает массив basketGoods и сравнивает свойство .id_product переданного параметра функции deleteProduct(объект cart списка корзины) и .id_product каждого товара в корзине basketGoods. Если такой товар имеется то find принимает этот товар как объект и записывает в find.
-            let find = this.basketGoods.find(item => cart.id_product == item.id_product);
-            //Если у объекта find свойство quantity имеет значение > 0 то...
-            if (find.quantity > 0) {
-                //Свойство quantity уменьшается на 1
-                find.quantity--;
-            };
-            //Если у объекта find свойство quantity имеет значение == 0 то...
-            if (find.quantity == 0) {
-                //Массив basketGoods перезаписывается на фильтрованный массив basketGoods. Метод filter перебирает массив basketGoods и сравнивает свойство .id_product переданного параметра функции deleteProduct(объект cart списка корзины) и .id_product каждого товара в корзине basketGoods. Если они не похожи, то товар перезаписывается в basketGoods, а если они одинаковы, то такой объект не попадает в отфильтрованный массив basketGoods, тем самым удаляясь из корзины.
-                this.basketGoods = this.basketGoods.filter(el => el.id_product !== cart.id_product);
-            }
+            //Получаем данные с удаленного сервера(Есть ли доступ к удалению товара)
+            this.getJson(`${API}/deleteFromBasket.json`)
+                .then(data => {
+                    //Если result === 1, то доступ разрешен
+                    if (data.result === 1) {
+                        //Если у объекта cart свойство quantity имеет значение > 1 то...
+                        if (cart.quantity > 1) {
+                            //Свойство quantity уменьшается на 1
+                            cart.quantity--;
+                        } else { //А если нет то...
+                            //Используя метод splice мы удаляем из массива переданный в качестве параметра функции объект cart. Splice принимает первым параметром index с которого надо удалить из массива, а вторым параметром количество удалений(последовательно). Метод .indexOf возвращает нам index для объекта cart который дальше мы используем в splice.
+                            this.basketGoods.splice(this.basketGoods.indexOf(cart), 1);
+                        }
+                    }
+                })
         },
         //Метод полной очистки товара из корзины
         clearBasket() {
@@ -83,11 +97,12 @@ const app = new Vue({
     },
     //Встроенный метод который исполняется сразу же после инициализации свойства data. В него записываем методы которые нужно сразу выполнить после прогрузки.
     mounted() {
-        //Получаем данные из json и заносим в массив products(удаленный)
+        //Получаем данные из json(удаленный) и заносим в массив products и filtered
         this.getJson(`${API + this.catalogUrl}`)
             .then(data => {
                 for (let el of data) {
                     this.products.push(el);
+                    this.filtered.push(el);
                 }
             });
         //Получаем данные из json и заносим в массив basketGoods
@@ -97,11 +112,12 @@ const app = new Vue({
                     this.basketGoods.push(el);
                 }
             });
-        //Получаем данные из json и заносим в массив products(локальный)
+        //Получаем данные из json(локальный) и заносим в массив products и filtered
         this.getJson(`getProducts.json`)
             .then(data => {
                 for (let el of data) {
                     this.products.push(el);
+                    this.filtered.push(el);
                 }
             })
     }

@@ -7,13 +7,13 @@
     <title>Интернет-магазин</title>
 </head>
 
-<body>
+<body class="hidden">
     <!--Вешаю id для индефикация блока при создание объекта new Vue в .js-->
     <div id="app">
 
         <header>
-            <!--При отправке формы вызываем метод filter()-->
-            <form action="#" class="search-form" @submit="filter()">
+            <!--При отправке формы вызываем метод filter(). Используем .prevent чтобы отправка не обновляла страницу-->
+            <form action="#" class="search-form" @submit.prevent="filter()">
                 <!--Синхронизируем введенные значения в input со свойством userSearch-->
                 <input type="text" class="search-field" v-model="userSearch">
                 <button class="btn-search" type="submit">
@@ -24,6 +24,8 @@
             <button class="btn-basket btn-cart" type="button" @click="showBasket = !showBasket">Корзина</button>
             <!--Вешаю встроенную функцию v-show показа/скрытия блока корзины по значению true/false свойства showBasket-->
             <div class="basket" v-show="showBasket">
+                <!--Если массив basketGoods пустой, то показать тег h1 Корзина пуста-->
+                <h1 v-if="!basketGoods.length">Корзина пуста</h1>
                 <!--Перебираю свойство(массив) basketGoods и присваиваю элементы массива в переменной cart, дальше строится html по шаблону дочерних тегов. Так же используется key с уникальным свойством каждого cart-->
                 <div class="basket__basket-item basket-item" v-for="cart of basketGoods" :key="cart.id_product">
                     <!--Использую v-if. Будет использоваться этот блок если у cart есть свойство img (cart.img(true)) -->
@@ -44,16 +46,17 @@
                     <!--Вешаю на кнопку событие @click, после которого запускается метод deleteProduct() и передаю в него данный cart-->
                     <button class="basket-item__btn btn-delete" type="button" @click="deleteProduct(cart)">X</button>
                 </div>
-                <!--Вешаю на кнопку событие @click, после которого запускается метод clearBasket()-->
-                <button class="basket__btn-clear btn-cart" type="button" @click="clearBasket()">Очистить
+                <!--Если массив basketGoods не пустой, то показать показать и повесить на кнопку событие @click, после которого запускается метод clearBasket()-->
+                <button class="basket__btn-clear btn-cart" type="button" v-if="basketGoods.length" @click="clearBasket()">Очистить
                     корзину</button>
             </div>
         </header>
 
         <main>
-            <!--Проверяю v-if на длину свойства(массив) filtered. Если >0(true) используется следующий шаблон html дочерних тегов  -->
-            <div class="products" v-if="filtered.length">
+            <div class="products">
                 <!--Перебираю свойство(массив) filtered и присваиваю элементы массива в переменной product, дальше строится html по шаблону дочерних тегов. Так же используется key с уникальным свойством каждого product-->
+                <!--Если массив filtered пустой, то показать тег h1 Товар не найден-->
+                <h1 v-if="!filtered.length">Товар не найден</h1>
                 <div class="product-item" v-for="product of filtered" :key="product.id_product">
                     <!--Вставляю название из product-->
                     <h3 class="product-item__title">{{product.product_name}}</h3>
@@ -69,21 +72,6 @@
                     <!--Вставляю цену из product-->
                     <p class="product-item__price">{{product.price}} $</p>
                     <!--Вешаю на кнопку событие @click которое запускает метод addProduct() и передает в качестве параметра данный product-->
-                    <button class="product-item__btn btn-cart" type="button"
-                        @click="addProduct(product)">Купить</button>
-                </div>
-            </div>
-            <!--Иначе использовать данный шаблон-->
-            <div class="products" v-else>
-                <!--Перебираю свойство(массив) products и присваиваю элементы массива в переменной product, дальше строится html по шаблону дочерних тегов. Так же используется key с уникальным свойством каждого product-->
-                <div class="product-item" v-for="product of products" :key="product.id_product">
-                    <h3 class="product-item__title">{{product.product_name}}</h3>
-                    <img class="product-item__img" :src="product.img" :alt="product.product_name" height="300px"
-                        v-if="product.img">
-                    <img class="product-item__img" :src="stubImg" :alt="product.product_name" height="300px" v-else>
-                    <p class="product-item__text" v-if="product.text">{{product.text}}</p>
-                    <p class="product-item__text" v-else>{{stubText}}</p>
-                    <p class="product-item__price">{{product.price}} $</p>
                     <button class="product-item__btn btn-cart" type="button"
                         @click="addProduct(product)">Купить</button>
                 </div>

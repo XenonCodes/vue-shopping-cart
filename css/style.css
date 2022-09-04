@@ -99,10 +99,6 @@ header {
     margin: 20px 0;
 }
 
-.basket__btn-clear {
-
-}
-
 .basket-item {
     display: flex;
     justify-content: space-between;
