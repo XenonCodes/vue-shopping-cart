@@ -47,6 +47,7 @@ header {
     position: absolute;
     bottom: 5px;
     right: 0;
+    cursor: pointer;
 }
 
 .btn-cart {
@@ -91,7 +92,7 @@ header {
     padding: 25px;
     top: 100%;
     width: 500px;
-    min-height: 100px;
+    z-index: 1;
 }
 
 .basket__basket-item {
@@ -177,7 +178,7 @@ main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 90px;
+    gap: 30px;
 }
 
 .product-item {
