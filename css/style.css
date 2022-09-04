@@ -7,6 +7,29 @@
     display: none;
 }
 
+.error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 40%;
+    left: 11%;
+    width: 75%;
+    min-height: 27%;
+    text-align: center;
+    font-size: 40px;
+    background-color: red;
+    border-radius: 25px;
+    border: 16px solid;
+    z-index: 3;
+}
+
+.error button {
+    width: 80px;
+    height: 42px;
+}
+
 header {
     position: relative;
     height: 100px;
