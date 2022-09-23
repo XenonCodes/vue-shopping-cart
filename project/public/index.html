@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сlothes shop</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="container header__wrp">
+                <div class="header__flex">
+                    <a class="header__logo button" href="#"><img src="./img/logo.png" alt="logo-icon"></a>
+                    <filter-el></filter-el>
+                </div>
+                <ul class="header__flex">
+                    <li class="header__flex">
+                        <button class="header__button button" type="button">
+                            <img src="./img/ic/burger-ic.svg" alt="burger-icon">
+                        </button>
+                        <nav class="header__nav">
+                            <button class="header__close button" type="button"></button>
+                            <h2 class="header__title">menu</h2>
+                            <ul>
+                                <li class="nav-sub">
+                                    <a class="nav-sub__title link" href="#">man</a>
+                                    <ul class="nav-sub__list">
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Accessories</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Bags</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Denim</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">T-Shirts</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-sub">
+                                    <a class="nav-sub__title link" href="#">woman</a>
+                                    <ul class="nav-sub__list">
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Accessories</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Jackets & Coats</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Polos</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">T-Shirts</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Shirts</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-sub">
+                                    <a class="nav-sub__title link" href="#">kids</a>
+                                    <ul class="nav-sub__list">
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Accessories</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Jackets & Coats</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Polos</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">T-Shirts</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Shirts</a>
+                                        </li>
+                                        <li class="nav-sub__item">
+                                            <a class="nav-sub__link link" href="#">Bags</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </li>
+                    <li class="header__flex">
+                        <a class="header__link button" href="#"><img src="./img/ic/profile-ic.svg"
+                                alt="profile-icon"></a>
+                    </li>
+                    <cart ref="cart"></cart>
+                </ul>
+            </div>
+        </header>
+
+        <main>
+            <error ref="error"></error>
+            <section class="brand">
+                <img class="brand__img" src="./img/man.jpg" alt="man">
+                <div class="brand__title-wrp">
+                    <h1 class="brand__title">the brand <span class="brand__subtitle">of luxerious <span
+                                class="brand__subtitle-pink">fashion</span></span> </h1>
+                </div>
+            </section>
+            <section class="sales">
+                <div class="container">
+                    <h2 class="visually-hidden" aria-hidden="true" tabindex="-1">sales</h2>
+                    <ul class="sales__list">
+                        <li class="sales__item sales__item--woman">
+                            <p class="sales__text">30% off</p>
+                            <h3 class="sales__title">for women</h3>
+                        </li>
+                        <li class="sales__item sales__item--men">
+                            <p class="sales__text">hot deal</p>
+                            <h3 class="sales__title">for men</h3>
+                        </li>
+                        <li class="sales__item sales__item--kids">
+                            <p class="sales__text">new arrivals</p>
+                            <h3 class="sales__title">for kids</h3>
+                        </li>
+                        <li class="sales__item sales__item--accesories">
+                            <p class="sales__text">luxirous & trendy</p>
+                            <h3 class="sales__title">accesories</h3>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <products ref="products">
+            </products>
+            <section class="advantages">
+                <h2 class="visually-hidden" aria-hidden="true" tabindex="-1">Advantages</h2>
+                <div class="container">
+                    <ul class="advantages__list">
+                        <li class="advantages__item">
+                            <img class="advantages__img" src="./img/ic/delivery-ic.svg" alt="delivery-icon">
+                            <h3 class="advantages__title">Free Delivery</h3>
+                            <p class="advantages__text">Worldwide delivery on all. Authorit tively morph next-generation
+                                innov
+                                tion with extensive
+                                models.</p>
+                        </li>
+                        <li class="advantages__item">
+                            <img class="advantages__img" src="./img/ic/discounts-ic.svg" alt="discounts-icon">
+                            <h3 class="advantages__title">Sales & discounts</h3>
+                            <p class="advantages__text">Worldwide delivery on all. Authorit tively morph next-generation
+                                innov
+                                tion with extensive
+                                models.</p>
+                        </li>
+                        <li class="advantages__item">
+                            <img class="advantages__img" src="./img/ic/quality-assurance-ic.svg"
+                                alt="quality-assurance-icon">
+                            <h3 class="advantages__title">Quality assurance</h3>
+                            <p class="advantages__text">Worldwide delivery on all. Authorit tively morph next-generation
+                                innov
+                                tion with extensive
+                                models.</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer__bkg-img">
+                <div class="footer__wrp-feedback container">
+                    <div class="footer__feedback">
+                        <img src="./img/face.png" alt="face-woman">
+                        <p class="footer__text">“Vestibulum quis porttitor dui! Quisque viverra nunc mi, a pulvinar
+                            purus
+                            condimentum“</p>
+                    </div>
+                    <form class="footer__form-subscribe" action="#">
+                        <h2 class="footer__title">subscribe</h2>
+                        <p class="footer__text-sub">for our newletter and promotion</p>
+                        <label class="visually-hidden" for="email-sub">email</label>
+                        <div class="footer__flex">
+                            <input class="footer__input input" type="email" id="email-sub" required
+                                placeholder="Enter Your Email">
+                            <button class="footer__button " type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="footer__wrp-copyright container">
+                <p class="footer__copyright">© 2021 Brand All Rights Reserved.</p>
+                <ul class="footer__list">
+                    <li class="footer__item"><a class="button" href="#"><img src="./img/ic/facebook-ic.svg"
+                                alt="facebook-icon"></a>
+                    </li>
+                    <li class="footer__item"><a class="button" href="#"><img src="./img/ic/instagram-ic.svg"
+                                alt="instagram-icon"></a>
+                    </li>
+                    <li class="footer__item"><a class="button" href="#"><img src="./img/ic/pinterest-ic.svg"
+                                alt="pinterest-icon"></a>
+                    </li>
+                    <li class="footer__item"><a class="button" href="#"><img src="./img/ic/twitter-ic.svg"
+                                alt="twitter-icon"></a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/ProductComponent.js"></script>
+    <script src="js/CartComponent.js"></script>
+    <script src="js/FilterComp.js"></script>
+    <script src="js/ErrorComp.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
